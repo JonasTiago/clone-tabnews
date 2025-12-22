@@ -1,5 +1,5 @@
 function Home() {
-    return <>Home Novo</>
+    return <>H</>
 }
 
 export default Home;
