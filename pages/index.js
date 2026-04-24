@@ -1,19 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Head from "next/head";
 
 /* ─── ACCENT ─── */
-const A  = "#3a6ea8";
+const A = "#3a6ea8";
 const AL = "#7ab3e0";
 const AD = "#1a3a5c";
 
 /* ─── SECTIONS ─── */
 const SECTIONS = [
-  { id: "sobre",       label: "Sobre mim"  },
-  { id: "projetos",    label: "Projetos"   },
-  { id: "experiencia", label: "Experiência"},
-  { id: "formacao",    label: "Formação"   },
-  { id: "skills",      label: "Skills"     },
-  { id: "contato",     label: "Contato"    },
+  { id: "sobre",       label: "Sobre mim"   },
+  { id: "projetos",    label: "Projetos"    },
+  { id: "experiencia", label: "Experiência" },
+  { id: "formacao",    label: "Formação"    },
+  { id: "skills",      label: "Skills"      },
+  { id: "contato",     label: "Contato"     },
 ];
 
 /* ─── DATA ─── */
@@ -61,11 +61,11 @@ const DATA = {
     },
   ],
   skills: {
-    "Back-end":       ["Node.js","NestJS","TypeScript","Prisma","TypeORM"],
-    "Banco de dados": ["PostgreSQL","MongoDB","Redis"],
-    "Testes":         ["Jest","SuperTest"],
-    "Front-end":      ["React","Next.js","HTML","CSS"],
-    "Ferramentas":    ["Git","Docker","Scrum","Kanban"],
+    "Back-end":       ["Node.js", "NestJS", "TypeScript", "Prisma", "TypeORM"],
+    "Banco de dados": ["PostgreSQL", "MongoDB", "Redis"],
+    "Testes":         ["Jest", "SuperTest"],
+    "Front-end":      ["React", "Next.js", "HTML", "CSS"],
+    "Ferramentas":    ["Git", "Docker", "Scrum", "Kanban"],
   },
   projects: [
     {
@@ -104,16 +104,16 @@ const DATA = {
 /* ─── GLOBAL CSS ─── */
 const globalCss = `
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body, #__next { height: 100%; }
+  html, body { min-height: 100%; }
   body {
     font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: #181818;
     color: #e8e8e8;
-    overflow: hidden;
   }
   a { text-decoration: none; color: inherit; }
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -121,6 +121,152 @@ const globalCss = `
   @keyframes blink {
     0%, 100% { opacity: 1; }
     50%       { opacity: 0; }
+  }
+
+  /* ── Wrapper ── */
+  .pf-wrap {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #181818;
+    position: relative;
+  }
+
+  /* ── Centered container ── */
+  .pf-inner {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  /* ── Header ── */
+  .pf-header {
+    flex-shrink: 0;
+    padding: 22px 0;
+    position: relative;
+    z-index: 2;
+  }
+  .pf-header .pf-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* ── Main grid ── */
+  .pf-main { flex: 1; position: relative; z-index: 1; }
+  .pf-main .pf-inner {
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    padding-bottom: 24px;
+    min-height: calc(100vh - 88px);
+  }
+
+  /* ── Content column ── */
+  .pf-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 56px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+
+  /* ── Sidebar nav ── */
+  .pf-sidenav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid #202020;
+  }
+
+  /* ── Bottom nav (mobile) ── */
+  .pf-bottomnav {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: #111;
+    border-top: 1px solid #222;
+    z-index: 100;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .pf-bottomnav::-webkit-scrollbar { display: none; }
+  .pf-bottomnav-inner {
+    display: flex;
+    min-width: max-content;
+    padding: 0 4px;
+  }
+  .pf-bottomnav-btn {
+    flex-shrink: 0;
+    background: none; border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    padding: 11px 14px 9px;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    font-size: 11px;
+    color: #555;
+    border-bottom: 2px solid transparent;
+    transition: color .2s, border-color .2s;
+    white-space: nowrap;
+  }
+  .pf-bottomnav-btn.active {
+    color: #7ab3e0;
+    border-bottom-color: #3a6ea8;
+  }
+
+  /* ── Footer ── */
+  .pf-footer {
+    text-align: right;
+    padding: 0 0 18px;
+    font-size: 12px;
+    color: #2a2a2a;
+    flex-shrink: 0;
+    z-index: 2;
+    position: relative;
+  }
+
+  /* ── Corner brackets ── */
+  .pf-bracket {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Section title ── */
+  .pf-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 400;
+    color: #f0f0f0;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+    line-height: 1.05;
+    flex-shrink: 0;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .pf-inner { padding: 0 24px; }
+    .pf-main .pf-inner {
+      grid-template-columns: 1fr;
+      min-height: auto;
+      padding-bottom: 80px;
+    }
+    .pf-content {
+      padding-right: 0;
+      justify-content: flex-start;
+    }
+    .pf-sidenav { display: none; }
+    .pf-bottomnav { display: block; }
+    .pf-footer { display: none; }
+    .pf-bracket { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    .pf-inner { padding: 0 16px; }
+    .pf-header { padding: 16px 0; }
   }
 `;
 
@@ -183,8 +329,13 @@ function CornerBracket({ position }) {
   };
   const id = `gg-${position}`;
   return (
-    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}
-      style={{ position: "absolute", ...pos[position], pointerEvents: "none", zIndex: 0 }}>
+    <svg
+      width={size}
+      height={size}
+      viewBox={`0 0 ${size} ${size}`}
+      className="pf-bracket"
+      style={{ ...pos[position] }}
+    >
       <defs>
         <linearGradient id={id} x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor={A} />
@@ -204,33 +355,21 @@ function CornerBracket({ position }) {
 function Logo() {
   const [h, setH] = useState(false);
   return (
-    <div onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
-      style={{ display: "flex", alignItems: "center", gap: 8, cursor: "default", userSelect: "none" }}>
+    <div
+      onMouseEnter={() => setH(true)}
+      onMouseLeave={() => setH(false)}
+      style={{ display: "flex", alignItems: "center", gap: 8, cursor: "default", userSelect: "none" }}
+    >
       <svg width={28} height={28} viewBox="0 0 26 26" fill="none">
         <rect x="2" y="2" width="9" height="22" rx="1.5" fill={A} />
         <rect x="13" y="2" width="11" height="11" rx="1.5" fill={A} opacity=".55" />
       </svg>
       <div style={{ display: "flex", alignItems: "center", overflow: "hidden", height: 22 }}>
-        <span style={{ fontSize: 14, fontWeight: 600, color: h ? AL : "#ccc", transition: "color .8s", letterSpacing: "0.04em" }}>J</span>
-        <span style={{
-          fontSize: 14, fontWeight: 600, color: AL, letterSpacing: "0.02em",
-          maxWidth: h ? "60px" : "0px", opacity: h ? 1 : 0,
-          overflow: "hidden", whiteSpace: "nowrap",
-          transition: "max-width .9s cubic-bezier(.4,0,.2,1), opacity .7s ease",
-        }}>onas</span>
-        <span style={{
-          fontSize: 14, fontWeight: 600,
-          maxWidth: h ? "8px" : "0px", opacity: h ? 1 : 0,
-          overflow: "hidden", whiteSpace: "nowrap",
-          transition: "max-width .9s cubic-bezier(.4,0,.2,1), opacity .7s ease",
-        }}>&nbsp;</span>
-        <span style={{ fontSize: 14, fontWeight: 600, color: h ? AL : "#ccc", transition: "color .8s", letterSpacing: "0.04em" }}>S</span>
-        <span style={{
-          fontSize: 14, fontWeight: 600, color: AL, letterSpacing: "0.02em",
-          maxWidth: h ? "60px" : "0px", opacity: h ? 1 : 0,
-          overflow: "hidden", whiteSpace: "nowrap",
-          transition: "max-width .95s cubic-bezier(.4,0,.2,1) .08s, opacity .75s ease .08s",
-        }}>antos</span>
+        <span style={{ fontSize: 14, fontWeight: 600, color: h ? AL : "#ccc", transition: "color .5s", letterSpacing: "0.04em" }}>J</span>
+        <span style={{ fontSize: 14, fontWeight: 600, color: AL, letterSpacing: "0.02em", maxWidth: h ? "60px" : "0px", opacity: h ? 1 : 0, overflow: "hidden", whiteSpace: "nowrap", transition: "max-width .9s cubic-bezier(.4,0,.2,1), opacity .7s ease" }}>onas</span>
+        <span style={{ fontSize: 14, fontWeight: 600, maxWidth: h ? "8px" : "0px", opacity: h ? 1 : 0, overflow: "hidden", whiteSpace: "nowrap", transition: "max-width .9s cubic-bezier(.4,0,.2,1), opacity .7s ease" }}>&nbsp;</span>
+        <span style={{ fontSize: 14, fontWeight: 600, color: h ? AL : "#ccc", transition: "color .5s", letterSpacing: "0.04em" }}>S</span>
+        <span style={{ fontSize: 14, fontWeight: 600, color: AL, letterSpacing: "0.02em", maxWidth: h ? "60px" : "0px", opacity: h ? 1 : 0, overflow: "hidden", whiteSpace: "nowrap", transition: "max-width .95s cubic-bezier(.4,0,.2,1) .08s, opacity .75s ease .08s" }}>antos</span>
       </div>
     </div>
   );
@@ -240,9 +379,15 @@ function Logo() {
 function HeaderLink({ icon, url, label }) {
   const [h, setH] = useState(false);
   return (
-    <a href={url} target="_blank" rel="noreferrer" title={label}
-      onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
-      style={{ color: h ? AL : "#444", transition: "color .2s", lineHeight: 0, display: "block" }}>
+    <a
+      href={url}
+      target="_blank"
+      rel="noreferrer"
+      title={label}
+      onMouseEnter={() => setH(true)}
+      onMouseLeave={() => setH(false)}
+      style={{ color: h ? AL : "#444", transition: "color .2s", lineHeight: 0, display: "block" }}
+    >
       {icon}
     </a>
   );
@@ -253,14 +398,37 @@ function SobrePanel() {
   return (
     <div>
       {DATA.bio.map((p, i) => (
-        <p key={i} style={{ fontSize: 16, lineHeight: 1.8, color: "#999", marginBottom: 14, maxWidth: 500 }}>{p}</p>
+        <p key={i} style={{ fontSize: 16, lineHeight: 1.8, color: "#999", marginBottom: 14 }}>{p}</p>
       ))}
       <div style={{ display: "flex", gap: 10, marginTop: 20, flexWrap: "wrap" }}>
-        {["Fortaleza, CE", "Backend", "Full Stack"].map(c => (
+        {["Fortaleza, CE", "Backend", "Full Stack"].map((c) => (
           <span key={c} style={{ fontSize: 13, padding: "5px 14px", borderRadius: 20, border: "1px solid #2e2e2e", color: "#666" }}>{c}</span>
         ))}
       </div>
     </div>
+  );
+}
+
+function ProjBtn({ href, icon, label, outline, filled }) {
+  const [h, setH] = useState(false);
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      onMouseEnter={() => setH(true)}
+      onMouseLeave={() => setH(false)}
+      style={{
+        display: "inline-flex", alignItems: "center", gap: 6,
+        padding: "6px 14px", borderRadius: 6, fontSize: 12, fontWeight: 500,
+        textDecoration: "none", transition: "all .15s",
+        border: outline ? `1px solid ${h ? "#4a7ec0" : "#333"}` : "none",
+        background: filled ? (h ? "#4a7ec0" : A) : (h ? "#1e1e1e" : "transparent"),
+        color: filled ? "white" : (h ? AL : "#888"),
+      }}
+    >
+      {icon}{label}
+    </a>
   );
 }
 
@@ -269,18 +437,18 @@ function ProjetosPanel() {
   return (
     <div>
       {DATA.projects.map((proj, i) => (
-        <div key={i} style={{
-          marginBottom: 14, padding: "14px 16px",
-          border: `1px solid ${h === i ? A : "#222"}`, borderRadius: 8,
-          background: h === i ? "#111820" : "transparent", transition: "all .2s",
-        }}
-          onMouseEnter={() => setH(i)} onMouseLeave={() => setH(null)}>
+        <div
+          key={i}
+          style={{ marginBottom: 14, padding: "14px 16px", border: `1px solid ${h === i ? A : "#222"}`, borderRadius: 8, background: h === i ? "#111820" : "transparent", transition: "all .2s" }}
+          onMouseEnter={() => setH(i)}
+          onMouseLeave={() => setH(null)}
+        >
           <div style={{ fontSize: 15, fontWeight: 600, color: h === i ? AL : "#e0e0e0", transition: "color .2s", marginBottom: 4 }}>
             {proj.emoji} {proj.name}
           </div>
           <div style={{ fontSize: 12, color: A, marginBottom: 7 }}>{proj.tech}</div>
           <div style={{ fontSize: 13, color: "#666", lineHeight: 1.5, marginBottom: 12 }}>{proj.desc}</div>
-          <div style={{ display: "flex", gap: 8 }}>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             <ProjBtn href={proj.repo} icon={<GithubIcon size={13} />} label="Repositório" outline />
             <ProjBtn href={proj.live} icon={<ExternalIcon size={13} />} label="Ver projeto" filled />
           </div>
@@ -290,37 +458,21 @@ function ProjetosPanel() {
   );
 }
 
-function ProjBtn({ href, icon, label, outline, filled }) {
-  const [h, setH] = useState(false);
-  return (
-    <a href={href} target="_blank" rel="noreferrer"
-      onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
-      style={{
-        display: "inline-flex", alignItems: "center", gap: 6,
-        padding: "6px 14px", borderRadius: 6, fontSize: 12, fontWeight: 500,
-        textDecoration: "none", transition: "all .15s",
-        border: outline ? `1px solid ${h ? "#4a7ec0" : "#333"}` : "none",
-        background: filled ? (h ? "#4a7ec0" : A) : (h ? "#1e1e1e" : "transparent"),
-        color: filled ? "white" : (h ? AL : "#888"),
-      }}>
-      {icon}{label}
-    </a>
-  );
-}
-
 function ExperienciaPanel() {
   const [open, setOpen] = useState(0);
   return (
     <div>
       {DATA.experience.map((exp, idx) => (
         <div key={idx} style={{ marginBottom: 16, borderBottom: "1px solid #222", paddingBottom: 16 }}>
-          <button onClick={() => setOpen(open === idx ? -1 : idx)}
-            style={{ width: "100%", background: "none", border: "none", cursor: "pointer", padding: 0, textAlign: "left", fontFamily: "inherit", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+          <button
+            onClick={() => setOpen(open === idx ? -1 : idx)}
+            style={{ width: "100%", background: "none", border: "none", cursor: "pointer", padding: 0, textAlign: "left", fontFamily: "inherit", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}
+          >
             <div>
               <div style={{ fontWeight: 600, fontSize: 16, color: "#f0f0f0" }}>{exp.role}</div>
               <div style={{ fontSize: 14, color: A, marginTop: 3 }}>{exp.company} · {exp.period}</div>
             </div>
-            <span style={{ color: "#555", fontSize: 13, marginTop: 2 }}>{open === idx ? "▲" : "▼"}</span>
+            <span style={{ color: "#555", fontSize: 13, marginTop: 2, flexShrink: 0, marginLeft: 8 }}>{open === idx ? "▲" : "▼"}</span>
           </button>
           {open === idx && (
             <ul style={{ marginTop: 10, paddingLeft: 0, listStyle: "none" }}>
@@ -350,7 +502,7 @@ function FormacaoPanel() {
       ))}
       <div style={{ marginTop: 8 }}>
         <div style={{ fontSize: 12, color: "#555", textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 500, marginBottom: 8 }}>Idiomas</div>
-        {["Inglês — Técnico (leitura)", "Espanhol — Básico"].map(l => (
+        {["Inglês — Técnico (leitura)", "Espanhol — Básico"].map((l) => (
           <div key={l} style={{ fontSize: 14, color: "#888", marginBottom: 6 }}>· {l}</div>
         ))}
       </div>
@@ -361,12 +513,13 @@ function FormacaoPanel() {
 function SkillTag({ children }) {
   const [h, setH] = useState(false);
   return (
-    <span onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
-      style={{
-        fontSize: 13, padding: "5px 13px", borderRadius: 4,
-        background: h ? "#111820" : "#1e1e1e", border: `1px solid ${h ? A : "#2a2a2a"}`,
-        color: h ? AL : "#888", transition: "all .15s", cursor: "default",
-      }}>{children}</span>
+    <span
+      onMouseEnter={() => setH(true)}
+      onMouseLeave={() => setH(false)}
+      style={{ fontSize: 13, padding: "5px 13px", borderRadius: 4, background: h ? "#111820" : "#1e1e1e", border: `1px solid ${h ? A : "#2a2a2a"}`, color: h ? AL : "#888", transition: "all .15s", cursor: "default" }}
+    >
+      {children}
+    </span>
   );
 }
 
@@ -377,7 +530,7 @@ function SkillsPanel() {
         <div key={group} style={{ marginBottom: 18 }}>
           <div style={{ fontSize: 12, color: A, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 9 }}>{group}</div>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-            {items.map(s => <SkillTag key={s}>{s}</SkillTag>)}
+            {items.map((s) => <SkillTag key={s}>{s}</SkillTag>)}
           </div>
         </div>
       ))}
@@ -388,9 +541,14 @@ function SkillsPanel() {
 function ContatoRow({ label, icon, url, sub }) {
   const [h, setH] = useState(false);
   return (
-    <a href={url} target="_blank" rel="noreferrer"
-      onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
-      style={{ display: "flex", alignItems: "center", gap: 16, padding: "13px 0", borderBottom: "1px solid #1e1e1e", textDecoration: "none", color: "inherit" }}>
+    <a
+      href={url}
+      target="_blank"
+      rel="noreferrer"
+      onMouseEnter={() => setH(true)}
+      onMouseLeave={() => setH(false)}
+      style={{ display: "flex", alignItems: "center", gap: 16, padding: "13px 0", borderBottom: "1px solid #1e1e1e", textDecoration: "none", color: "inherit" }}
+    >
       <span style={{ color: h ? A : "#444", transition: "color .15s" }}>{icon}</span>
       <div>
         <div style={{ fontSize: 14, fontWeight: 600, color: h ? AL : "#ddd", transition: "color .15s" }}>{label}</div>
@@ -410,10 +568,46 @@ function ContatoPanel() {
         { label: "LinkedIn",  icon: <LinkedInIcon size={20} />,  url: DATA.links.linkedin,  sub: "jonastiago" },
         { label: "E-mail",    icon: <MailIcon size={20} />,      url: DATA.links.email,     sub: "jonastiago@email.com" },
         { label: "Instagram", icon: <InstagramIcon size={20} />, url: DATA.links.instagram, sub: "@j.t.santos85" },
-      ].map(item => <ContatoRow key={item.label} {...item} />)}
+      ].map((item) => <ContatoRow key={item.label} {...item} />)}
     </div>
   );
 }
+
+/* ─── NAV ICONS (bottom bar) ─── */
+const NAV_ICONS = {
+  sobre: (
+    <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+    </svg>
+  ),
+  projetos: (
+    <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <rect x="3" y="3" width="8" height="8" rx="1" /><rect x="13" y="3" width="8" height="8" rx="1" />
+      <rect x="3" y="13" width="8" height="8" rx="1" /><rect x="13" y="13" width="8" height="8" rx="1" />
+    </svg>
+  ),
+  experiencia: (
+    <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" />
+      <line x1="12" y1="12" x2="12" y2="16" /><line x1="10" y1="14" x2="14" y2="14" />
+    </svg>
+  ),
+  formacao: (
+    <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M22 10l-10-7L2 10l10 7 10-7z" /><path d="M6 12v5c0 1.1 2.686 3 6 3s6-1.9 6-3v-5" />
+    </svg>
+  ),
+  skills: (
+    <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" />
+    </svg>
+  ),
+  contato: (
+    <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+    </svg>
+  ),
+};
 
 /* ─── PANELS MAP ─── */
 const PANELS = {
@@ -433,95 +627,101 @@ export default function Home() {
   const goTo = (id) => {
     if (id === active) return;
     setActive(id);
-    setAnimKey(k => k + 1);
+    setAnimKey((k) => k + 1);
+    window.scrollTo({ top: 0 });
   };
 
-  const activeLabel = SECTIONS.find(s => s.id === active)?.label;
+  const activeLabel = SECTIONS.find((s) => s.id === active)?.label;
 
   return (
     <>
       <Head>
         <title>Jonas Santos — Portfolio</title>
-        <meta name="description" content="Software Engineer | Full Stack Developer | Back-end" />
+        <meta name="description" content="Desenvolvedor Back-End | Full Stack | Node.js · NestJS · React" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet" />
-        <style>{globalCss}</style>
+        <style dangerouslySetInnerHTML={{ __html: globalCss }} />
       </Head>
 
-      <div style={{ width: "100vw", height: "100vh", display: "flex", flexDirection: "column", background: "#181818", position: "relative", overflow: "hidden" }}>
-
+      <div className="pf-wrap">
         <CornerBracket position="tl" />
         <CornerBracket position="tr" />
         <CornerBracket position="bl" />
         <CornerBracket position="br" />
 
-        {/* HEADER */}
-        <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "22px 48px", flexShrink: 0, position: "relative", zIndex: 2 }}>
-          <Logo />
-          <div style={{ display: "flex", gap: 24 }}>
-            <HeaderLink icon={<MailIcon size={22} />}      url={DATA.links.email}     label="Email" />
-            <HeaderLink icon={<GithubIcon size={22} />}    url={DATA.links.github}    label="GitHub" />
-            <HeaderLink icon={<LinkedInIcon size={22} />}  url={DATA.links.linkedin}  label="LinkedIn" />
-            <HeaderLink icon={<InstagramIcon size={22} />} url={DATA.links.instagram} label="Instagram" />
+        {/* ── HEADER ── */}
+        <header className="pf-header">
+          <div className="pf-inner">
+            <Logo />
+            <div style={{ display: "flex", gap: 20 }}>
+              <HeaderLink icon={<MailIcon size={20} />}      url={DATA.links.email}     label="Email" />
+              <HeaderLink icon={<GithubIcon size={20} />}    url={DATA.links.github}    label="GitHub" />
+              <HeaderLink icon={<LinkedInIcon size={20} />}  url={DATA.links.linkedin}  label="LinkedIn" />
+              <HeaderLink icon={<InstagramIcon size={20} />} url={DATA.links.instagram} label="Instagram" />
+            </div>
           </div>
         </header>
 
-        {/* BODY */}
-        <main style={{ flex: 1, display: "grid", gridTemplateColumns: "1fr 240px", padding: "0 48px 24px", overflow: "hidden", position: "relative", zIndex: 1 }}>
-
-          {/* LEFT — title + content */}
-          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", paddingRight: 60, overflowY: "auto" }}>
-            <div style={{
-              fontFamily: "'DM Serif Display', serif",
-              fontSize: "clamp(44px, 5.5vw, 72px)",
-              fontWeight: 400, color: "#f0f0f0",
-              letterSpacing: "-0.01em", marginBottom: 24, lineHeight: 1.05, flexShrink: 0,
-            }}>
-              {activeLabel}
-              <span style={{ color: A, display: "inline-block", animation: "blink .9s step-end infinite" }}>.</span>
-            </div>
-            <div key={animKey} style={{ animation: "fadeIn .3s ease both" }}>
-              {PANELS[active]}
-            </div>
-          </div>
-
-          {/* RIGHT — nav */}
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", borderLeft: "1px solid #202020" }}>
-            <div>
-              <div style={{ fontSize: 11, color: A, fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 18, paddingLeft: 22 }}>
-                Navegação
+        {/* ── MAIN ── */}
+        <main className="pf-main">
+          <div className="pf-inner">
+            {/* Content */}
+            <div className="pf-content">
+              <div className="pf-title">
+                {activeLabel}
+                <span style={{ color: A, display: "inline-block", animation: "blink .9s step-end infinite" }}>.</span>
               </div>
-              {SECTIONS.map(sec => {
-                const isActive = active === sec.id;
-                return (
-                  <button key={sec.id} onClick={() => goTo(sec.id)}
-                    style={{
-                      display: "block", width: "100%", background: "none", border: "none",
-                      cursor: "pointer", fontFamily: "inherit", padding: "9px 0 9px 22px",
-                      textAlign: "left",
-                      borderLeft: `2px solid ${isActive ? A : "transparent"}`,
-                      transition: "border-color .2s", marginBottom: 2,
-                    }}>
-                    <span style={{
-                      fontSize: 15, fontWeight: isActive ? 500 : 400,
-                      color: isActive ? AL : "#555", transition: "color .2s",
-                      textDecoration: isActive ? "underline" : "none",
-                      textUnderlineOffset: 4, textDecorationColor: A,
-                    }}>
-                      {sec.label}
-                    </span>
-                  </button>
-                );
-              })}
+              <div key={animKey} style={{ animation: "fadeIn .3s ease both" }}>
+                {PANELS[active]}
+              </div>
             </div>
+
+            {/* Sidebar — desktop only */}
+            <nav className="pf-sidenav" aria-label="Navegação principal">
+              <div>
+                <div style={{ fontSize: 11, color: A, fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 18, paddingLeft: 22 }}>
+                  Navegação
+                </div>
+                {SECTIONS.map((sec) => {
+                  const isActive = active === sec.id;
+                  return (
+                    <button
+                      key={sec.id}
+                      onClick={() => goTo(sec.id)}
+                      style={{ display: "block", width: "100%", background: "none", border: "none", cursor: "pointer", fontFamily: "inherit", padding: "9px 0 9px 22px", textAlign: "left", borderLeft: `2px solid ${isActive ? A : "transparent"}`, transition: "border-color .2s", marginBottom: 2 }}
+                    >
+                      <span style={{ fontSize: 15, fontWeight: isActive ? 500 : 400, color: isActive ? AL : "#555", transition: "color .2s", textDecoration: isActive ? "underline" : "none", textUnderlineOffset: 4, textDecorationColor: A }}>
+                        {sec.label}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </nav>
           </div>
         </main>
 
-        {/* FOOTER */}
-        <footer style={{ textAlign: "right", padding: "0 52px 18px", fontSize: 12, color: "#2a2a2a", flexShrink: 0, zIndex: 2, position: "relative" }}>
-          ©2025 jonastiago.dev
+        {/* ── FOOTER ── */}
+        <footer className="pf-footer">
+          <div className="pf-inner">©2025 jonastiago.dev</div>
         </footer>
+
+        {/* ── BOTTOM NAV — mobile only ── */}
+        <nav className="pf-bottomnav" aria-label="Navegação mobile">
+          <div className="pf-bottomnav-inner">
+            {SECTIONS.map((sec) => (
+              <button
+                key={sec.id}
+                onClick={() => goTo(sec.id)}
+                className={`pf-bottomnav-btn${active === sec.id ? " active" : ""}`}
+              >
+                <span style={{ lineHeight: 0 }}>{NAV_ICONS[sec.id]}</span>
+                {sec.label}
+              </button>
+            ))}
+          </div>
+        </nav>
       </div>
     </>
   );
