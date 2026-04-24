@@ -1,120 +1,131 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 
-/* ─────────────────────────────────────────
-   DATA
-───────────────────────────────────────── */
+/* ─── ACCENT ─── */
+const A  = "#3a6ea8";
+const AL = "#7ab3e0";
+const AD = "#1a3a5c";
+
+/* ─── SECTIONS ─── */
+const SECTIONS = [
+  { id: "sobre",       label: "Sobre mim"  },
+  { id: "projetos",    label: "Projetos"   },
+  { id: "experiencia", label: "Experiência"},
+  { id: "formacao",    label: "Formação"   },
+  { id: "skills",      label: "Skills"     },
+  { id: "contato",     label: "Contato"    },
+];
+
+/* ─── DATA ─── */
 const DATA = {
-  name: "Jonas Tiago",
-  surname: "Santos",
-  headline:
-    "Software Engineer | Full Stack | Back-end | Node.js · NestJS · TypeScript · PostgreSQL · MongoDB · React",
-  location: "Fortaleza, Ceará, Brasil",
-  company: "STB Tecnologias",
-  connections: "127",
-  bio: `Desenvolvedor Backend com quase 2 anos de experiência atuando em sistemas de Big Data em ambiente corporativo. Forte atuação com SQL, manipulação de dados em larga escala, arquitetura de APIs REST e integração com sistemas distribuídos.
-
-Familiaridade com containers Docker, versionamento com Git e metodologias ágeis. Interesse em evoluir tecnicamente em ambientes desafiadores, com foco em backend, dados e escalabilidade.
-
-Também desenvolvo projetos pessoais Full Stack com React, Node.js e MongoDB.`,
+  bio: [
+    "Desenvolvedor Backend com experiência em sistemas de Big Data em ambiente corporativo. Forte atuação com SQL, APIs REST e integração com sistemas distribuídos.",
+    "Interesse em evoluir em ambientes desafiadores, com foco em backend, dados e escalabilidade. Também desenvolvo projetos pessoais Full Stack com React, Node.js e MongoDB.",
+  ],
   experience: [
     {
       role: "Desenvolvedor Back-End Júnior",
       company: "STB Tecnologias",
-      location: "Fortaleza, CE",
       period: "fev 2025 – presente",
-      duration: "3 meses",
       items: [
-        "Migração de sistemas legados Node.js (Express) para arquitetura modular em NestJS",
-        "Manutenção e evolução de serviços com alto volume de requisições diárias",
-        "Testes unitários e de integração com Jest e SuperTest",
-        "Cache com Redis, reduzindo latência em endpoints críticos de alta volumetria",
-        "Otimização avançada de queries SQL no PostgreSQL",
-        "Code reviews e definição de padrões de arquitetura para o time",
+        "Migração de Node.js (Express) para NestJS modular",
+        "Serviços com alto volume de requisições diárias",
+        "Testes com Jest e SuperTest",
+        "Cache com Redis em endpoints críticos de alta volumetria",
+        "Otimização de queries SQL no PostgreSQL",
+        "Code reviews e padrões de arquitetura para o time",
       ],
     },
     {
-      role: "Estagiário de Desenvolvimento Back-End",
+      role: "Estagiário Back-End",
       company: "STB Tecnologias",
-      location: "Fortaleza, CE",
       period: "jun 2023 – fev 2025",
-      duration: "1 ano e 8 meses",
       items: [
-        "Manutenção de sistemas legados em Node.js com adição de novas funcionalidades",
-        "Testes unitários e de integração com Jest e SuperTest",
-        "Colaboração em metodologias ágeis (Scrum e Kanban)",
+        "Manutenção de sistemas legados em Node.js",
+        "Testes unitários e de integração",
+        "Colaboração em Scrum e Kanban",
       ],
     },
   ],
   education: [
     {
-      institution: "UNIFOR — Universidade de Fortaleza",
+      inst: "UNIFOR — Universidade de Fortaleza",
       degree: "Análise e Desenvolvimento de Sistemas",
-      period: "Concluído em 2025",
-      detail: "",
+      year: "2025",
     },
     {
-      institution: "Driven Education",
+      inst: "Driven Education",
       degree: "Desenvolvimento Web Full Stack",
-      period: "Concluído em 2023",
-      detail:
-        "Formação intensiva · +1.200 horas · 25+ projetos práticos · React.js e Node.js",
+      year: "2023",
+      note: "+1.200h · 25+ projetos práticos · React.js e Node.js",
     },
   ],
   skills: {
-    "Back-end": ["Node.js", "NestJS", "TypeScript", "Prisma", "TypeORM"],
-    APIs: ["REST", "Integração de serviços", "Autenticação JWT"],
-    "Banco de dados": ["PostgreSQL", "MongoDB", "Redis"],
-    Testes: ["Jest", "SuperTest"],
-    "Front-end": ["React", "Next.js", "HTML", "CSS"],
-    "DevOps / Ferramentas": ["Git", "Docker", "Scrum", "Kanban"],
+    "Back-end":       ["Node.js","NestJS","TypeScript","Prisma","TypeORM"],
+    "Banco de dados": ["PostgreSQL","MongoDB","Redis"],
+    "Testes":         ["Jest","SuperTest"],
+    "Front-end":      ["React","Next.js","HTML","CSS"],
+    "Ferramentas":    ["Git","Docker","Scrum","Kanban"],
   },
   projects: [
     {
-      name: "Parrots Card Game",
-      desc: "Jogo de cartas interativo com temática de papagaios. Lógica de jogo completa, placar e interface animada.",
-      tech: ["JavaScript", "HTML", "CSS"],
-      url: "https://github.com/JonasTiago/parrotscardgame",
+      name:  "Parrots Card Game",
       emoji: "🦜",
+      tech:  "JavaScript · HTML · CSS",
+      desc:  "Jogo de cartas interativo com lógica completa e interface animada.",
+      repo:  "https://github.com/JonasTiago/parrotscardgame",
+      live:  "https://jonastiago.github.io/parrotscardgame/",
     },
     {
-      name: "Jogo da Forca",
-      desc: "Clássico jogo da forca com palavras temáticas, contagem de tentativas e feedback visual em tempo real.",
-      tech: ["JavaScript", "HTML", "CSS"],
-      url: "https://github.com/JonasTiago/jogoforca",
+      name:  "Jogo da Forca",
       emoji: "🎯",
+      tech:  "JavaScript · HTML · CSS",
+      desc:  "Clássico jogo da forca com feedback visual em tempo real.",
+      repo:  "https://github.com/JonasTiago/jogoforca",
+      live:  "https://projeto8-jogoforca-82uv.vercel.app/",
     },
     {
-      name: "Decodificador de Texto",
-      desc: "Aplicação que codifica e decodifica mensagens usando algoritmo próprio. Interface limpa e responsiva.",
-      tech: ["JavaScript", "HTML", "CSS"],
-      url: "https://github.com/JonasTiago/Decodificador",
+      name:  "Decodificador",
       emoji: "🔐",
+      tech:  "JavaScript · HTML · CSS",
+      desc:  "Codifica e decodifica mensagens com algoritmo próprio.",
+      repo:  "https://github.com/JonasTiago/Decodificador",
+      live:  "https://jonastiago.github.io/Decodificador/",
     },
   ],
   links: {
-    github: "https://github.com/JonasTiago",
-    linkedin: "https://www.linkedin.com/in/jonastiago/",
+    github:    "https://github.com/JonasTiago",
+    linkedin:  "https://www.linkedin.com/in/jonastiago/",
+    email:     "mailto:jonastiago@email.com",
+    instagram: "https://www.instagram.com/j.t.santos85/",
   },
-  languages: ["Inglês — Técnico (leitura)", "Espanhol — Básico"],
 };
 
-/* ─────────────────────────────────────────
-   THEME
-───────────────────────────────────────── */
-const T = {
-  blue: "#0A66C2",
-  bg: "#f3f2ef",
-  card: "white",
-  text: "#1d2226",
-  muted: "#666666",
-  border: "#e0dede",
-};
+/* ─── GLOBAL CSS ─── */
+const globalCss = `
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body, #__next { height: 100%; }
+  body {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #181818;
+    color: #e8e8e8;
+    overflow: hidden;
+  }
+  a { text-decoration: none; color: inherit; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
+`;
 
-/* ─────────────────────────────────────────
-   ICONS (inline SVG)
-───────────────────────────────────────── */
-function GithubIcon({ size = 20 }) {
+/* ─── ICONS ─── */
+function GithubIcon({ size = 22 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
       <path d="M12 0C5.37 0 0 5.373 0 12c0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.929.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.573C20.565 21.795 24 17.298 24 12c0-6.627-5.373-12-12-12z" />
@@ -122,7 +133,7 @@ function GithubIcon({ size = 20 }) {
   );
 }
 
-function LinkedInIcon({ size = 20 }) {
+function LinkedInIcon({ size = 22 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
       <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
@@ -130,1041 +141,388 @@ function LinkedInIcon({ size = 20 }) {
   );
 }
 
-/* ─────────────────────────────────────────
-   SHARED COMPONENTS
-───────────────────────────────────────── */
-function Card({ children, id, style = {} }) {
+function MailIcon({ size = 22 }) {
   return (
-    <div
-      id={id}
-      style={{
-        background: T.card,
-        borderRadius: 8,
-        border: `1px solid ${T.border}`,
-        overflow: "hidden",
-        marginBottom: 8,
-        ...style,
-      }}
-    >
-      {children}
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <rect x="2" y="4" width="20" height="16" rx="2" />
+      <polyline points="2,4 12,13 22,4" />
+    </svg>
+  );
+}
+
+function InstagramIcon({ size = 22 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <rect x="2" y="2" width="20" height="20" rx="5" />
+      <circle cx="12" cy="12" r="4.5" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function ExternalIcon({ size = 14 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+      <polyline points="15,3 21,3 21,9" />
+      <line x1="10" y1="14" x2="21" y2="3" />
+    </svg>
+  );
+}
+
+/* ─── CORNER BRACKET ─── */
+function CornerBracket({ position }) {
+  const size = 90, thick = 2;
+  const pos = {
+    tl: { top: 0, left: 0 }, tr: { top: 0, right: 0 },
+    bl: { bottom: 0, left: 0 }, br: { bottom: 0, right: 0 },
+  };
+  const flip = {
+    tl: "scale(1,1)", tr: "scale(-1,1)",
+    bl: "scale(1,-1)", br: "scale(-1,-1)",
+  };
+  const id = `gg-${position}`;
+  return (
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}
+      style={{ position: "absolute", ...pos[position], pointerEvents: "none", zIndex: 0 }}>
+      <defs>
+        <linearGradient id={id} x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor={A} />
+          <stop offset="50%" stopColor={AL} />
+          <stop offset="100%" stopColor={AD} />
+        </linearGradient>
+      </defs>
+      <g transform={`translate(${position.includes("r") ? size : 0},${position.includes("b") ? size : 0}) ${flip[position]}`}>
+        <rect x="0" y="0" width={thick} height={54} fill={`url(#${id})`} />
+        <rect x="0" y="0" width={54} height={thick} fill={`url(#${id})`} />
+      </g>
+    </svg>
+  );
+}
+
+/* ─── LOGO ─── */
+function Logo() {
+  const [h, setH] = useState(false);
+  return (
+    <div onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
+      style={{ display: "flex", alignItems: "center", gap: 8, cursor: "default", userSelect: "none" }}>
+      <svg width={28} height={28} viewBox="0 0 26 26" fill="none">
+        <rect x="2" y="2" width="9" height="22" rx="1.5" fill={A} />
+        <rect x="13" y="2" width="11" height="11" rx="1.5" fill={A} opacity=".55" />
+      </svg>
+      <div style={{ display: "flex", alignItems: "center", overflow: "hidden", height: 22 }}>
+        <span style={{ fontSize: 14, fontWeight: 600, color: h ? AL : "#ccc", transition: "color .8s", letterSpacing: "0.04em" }}>J</span>
+        <span style={{
+          fontSize: 14, fontWeight: 600, color: AL, letterSpacing: "0.02em",
+          maxWidth: h ? "60px" : "0px", opacity: h ? 1 : 0,
+          overflow: "hidden", whiteSpace: "nowrap",
+          transition: "max-width .9s cubic-bezier(.4,0,.2,1), opacity .7s ease",
+        }}>onas</span>
+        <span style={{
+          fontSize: 14, fontWeight: 600,
+          maxWidth: h ? "8px" : "0px", opacity: h ? 1 : 0,
+          overflow: "hidden", whiteSpace: "nowrap",
+          transition: "max-width .9s cubic-bezier(.4,0,.2,1), opacity .7s ease",
+        }}>&nbsp;</span>
+        <span style={{ fontSize: 14, fontWeight: 600, color: h ? AL : "#ccc", transition: "color .8s", letterSpacing: "0.04em" }}>S</span>
+        <span style={{
+          fontSize: 14, fontWeight: 600, color: AL, letterSpacing: "0.02em",
+          maxWidth: h ? "60px" : "0px", opacity: h ? 1 : 0,
+          overflow: "hidden", whiteSpace: "nowrap",
+          transition: "max-width .95s cubic-bezier(.4,0,.2,1) .08s, opacity .75s ease .08s",
+        }}>antos</span>
+      </div>
     </div>
   );
 }
 
-function SectionTitle({ children }) {
+/* ─── HEADER LINK ─── */
+function HeaderLink({ icon, url, label }) {
+  const [h, setH] = useState(false);
   return (
-    <h2
-      style={{
-        fontSize: 16,
-        fontWeight: 700,
-        marginBottom: 16,
-        color: T.text,
-      }}
-    >
-      {children}
-    </h2>
-  );
-}
-
-/* ─────────────────────────────────────────
-   TOP NAV
-───────────────────────────────────────── */
-const NAV_ITEMS = [
-  { id: "sobre", label: "Sobre mim" },
-  { id: "experiencia", label: "Experiência" },
-  { id: "formacao", label: "Formação" },
-  { id: "skills", label: "Skills" },
-  { id: "projetos", label: "Projetos" },
-  { id: "contato", label: "Contato" },
-];
-
-function TopNav({ activeSection, onNav }) {
-  return (
-    <nav
-      style={{
-        background: "white",
-        borderBottom: `1px solid ${T.border}`,
-        position: "sticky",
-        top: 0,
-        zIndex: 100,
-        boxShadow: "0 0 0 1px rgba(0,0,0,.08)",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 1128,
-          margin: "0 auto",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "0 16px",
-          height: 52,
-        }}
-      >
-        {/* Logo */}
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <div
-            style={{
-              background: T.blue,
-              borderRadius: 4,
-              width: 32,
-              height: 32,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <span
-              style={{
-                color: "white",
-                fontWeight: 700,
-                fontSize: 18,
-              }}
-            >
-              J
-            </span>
-          </div>
-          <span style={{ fontWeight: 600, fontSize: 15 }}>Jonas Tiago</span>
-        </div>
-
-        {/* Nav items */}
-        <div style={{ display: "flex", gap: 2 }}>
-          {NAV_ITEMS.map((item) => {
-            const active = activeSection === item.id;
-            return (
-              <button
-                key={item.id}
-                onClick={() => onNav(item.id)}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  padding: "0 16px",
-                  height: 52,
-                  border: "none",
-                  borderBottom: active
-                    ? `2px solid ${T.text}`
-                    : "2px solid transparent",
-                  background: "none",
-                  cursor: "pointer",
-                  fontFamily: "inherit",
-                  fontSize: 13,
-                  fontWeight: active ? 600 : 400,
-                  color: active ? T.text : T.muted,
-                  transition: "all .15s",
-                }}
-              >
-                {item.label}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* GitHub CTA */}
-        <a
-          href={DATA.links.github}
-          target="_blank"
-          rel="noreferrer"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 6,
-            background: T.blue,
-            color: "white",
-            borderRadius: 20,
-            padding: "7px 18px",
-            fontSize: 13,
-            fontWeight: 600,
-            textDecoration: "none",
-            transition: "background .15s",
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.background = "#004182")}
-          onMouseLeave={(e) => (e.currentTarget.style.background = T.blue)}
-        >
-          <GithubIcon size={14} />
-          GitHub
-        </a>
-      </div>
-    </nav>
-  );
-}
-
-/* ─────────────────────────────────────────
-   LEFT SIDEBAR — Profile Card
-───────────────────────────────────────── */
-function ProfileCard() {
-  return (
-    <Card>
-      <div
-        style={{
-          height: 60,
-          background: `linear-gradient(135deg, ${T.blue} 0%, #0a4a8c 100%)`,
-        }}
-      />
-      <div style={{ padding: "0 16px 16px" }}>
-        <div style={{ marginTop: -30, marginBottom: 8 }}>
-          {/* 
-            ⚠️ INSTRUÇÕES DE FOTO:
-            1. Coloque sua foto em: /public/foto.jpg
-            2. A tag abaixo já aponta para esse caminho
-          */}
-          <img
-            src="/foto.jpg"
-            alt="Jonas Tiago"
-            style={{
-              width: 72,
-              height: 72,
-              borderRadius: "50%",
-              border: "3px solid white",
-              objectFit: "cover",
-              display: "block",
-            }}
-          />
-        </div>
-
-        <div style={{ fontWeight: 700, fontSize: 16, lineHeight: 1.3 }}>
-          {DATA.name} {DATA.surname}
-        </div>
-        <div
-          style={{
-            fontSize: 12,
-            color: T.muted,
-            marginTop: 2,
-            lineHeight: 1.4,
-          }}
-        >
-          Software Engineer · Back-end · Full Stack
-        </div>
-        <div style={{ fontSize: 12, color: T.muted, marginTop: 4 }}>
-          {DATA.location}
-        </div>
-        <div
-          style={{
-            fontSize: 12,
-            color: T.blue,
-            fontWeight: 600,
-            marginTop: 4,
-          }}
-        >
-          {DATA.company}
-        </div>
-
-        <Divider />
-
-        <div style={{ fontSize: 12, color: T.muted }}>
-          <span style={{ color: T.blue, fontWeight: 600 }}>
-            {DATA.connections}
-          </span>{" "}
-          conexões
-        </div>
-
-        <Divider />
-
-        {[
-          {
-            label: "GitHub",
-            icon: <GithubIcon size={15} />,
-            url: DATA.links.github,
-          },
-          {
-            label: "LinkedIn",
-            icon: <LinkedInIcon size={15} />,
-            url: DATA.links.linkedin,
-          },
-        ].map((link) => (
-          <SidebarLink key={link.label} {...link} />
-        ))}
-
-        <Divider />
-
-        <div
-          style={{
-            fontSize: 12,
-            color: T.muted,
-            fontWeight: 500,
-            marginBottom: 6,
-          }}
-        >
-          Idiomas
-        </div>
-        {DATA.languages.map((l) => (
-          <div
-            key={l}
-            style={{ fontSize: 12, color: T.muted, padding: "2px 0" }}
-          >
-            {l}
-          </div>
-        ))}
-      </div>
-    </Card>
-  );
-}
-
-function Divider() {
-  return (
-    <div style={{ borderTop: `1px solid ${T.border}`, margin: "12px 0" }} />
-  );
-}
-
-function SidebarLink({ label, icon, url }) {
-  const [hovered, setHovered] = useState(false);
-  return (
-    <a
-      href={url}
-      target="_blank"
-      rel="noreferrer"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 8,
-        padding: "6px 0",
-        fontSize: 13,
-        color: hovered ? T.blue : T.text,
-        fontWeight: 500,
-        textDecoration: "none",
-        transition: "color .15s",
-      }}
-    >
-      <span
-        style={{
-          color: hovered ? T.blue : T.muted,
-          transition: "color .15s",
-        }}
-      >
-        {icon}
-      </span>
-      {label}
-      <span style={{ marginLeft: "auto", fontSize: 11, color: T.muted }}>
-        ↗
-      </span>
+    <a href={url} target="_blank" rel="noreferrer" title={label}
+      onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
+      style={{ color: h ? AL : "#444", transition: "color .2s", lineHeight: 0, display: "block" }}>
+      {icon}
     </a>
   );
 }
 
-/* ─────────────────────────────────────────
-   ABOUT
-───────────────────────────────────────── */
-function AboutSection() {
-  const [expanded, setExpanded] = useState(false);
-  const paragraphs = DATA.bio.split("\n\n");
-
-  return (
-    <Card id="sobre">
-      <div style={{ padding: 16 }}>
-        <SectionTitle>Sobre</SectionTitle>
-        {expanded ? (
-          paragraphs.map((p, i) => (
-            <p
-              key={i}
-              style={{
-                fontSize: 14,
-                lineHeight: 1.6,
-                color: "#333",
-                marginBottom: i < paragraphs.length - 1 ? 12 : 0,
-              }}
-            >
-              {p}
-            </p>
-          ))
-        ) : (
-          <p style={{ fontSize: 14, lineHeight: 1.6, color: "#333" }}>
-            {paragraphs[0]}…
-          </p>
-        )}
-        <button
-          onClick={() => setExpanded(!expanded)}
-          style={{
-            background: "none",
-            border: "none",
-            color: T.blue,
-            cursor: "pointer",
-            fontFamily: "inherit",
-            fontSize: 13,
-            fontWeight: 600,
-            padding: "8px 0 0",
-          }}
-        >
-          {expanded ? "Ver menos ▲" : "Ver mais ▼"}
-        </button>
-      </div>
-    </Card>
-  );
-}
-
-/* ─────────────────────────────────────────
-   EXPERIENCE
-───────────────────────────────────────── */
-function ExperienceSection() {
-  const [expandedIdx, setExpandedIdx] = useState(0);
-
-  return (
-    <Card id="experiencia">
-      <div style={{ padding: 16 }}>
-        <SectionTitle>Experiência</SectionTitle>
-        {DATA.experience.map((exp, idx) => (
-          <div
-            key={idx}
-            style={{
-              display: "flex",
-              gap: 12,
-              marginBottom: idx < DATA.experience.length - 1 ? 24 : 0,
-              paddingBottom: idx < DATA.experience.length - 1 ? 24 : 0,
-              borderBottom:
-                idx < DATA.experience.length - 1
-                  ? `1px solid ${T.border}`
-                  : "none",
-            }}
-          >
-            <div
-              style={{
-                width: 48,
-                height: 48,
-                minWidth: 48,
-                borderRadius: 4,
-                background: "#e8f0fe",
-                border: `1px solid ${T.border}`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 14,
-                fontWeight: 700,
-                color: T.blue,
-              }}
-            >
-              ST
-            </div>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontWeight: 600, fontSize: 14 }}>{exp.role}</div>
-              <div style={{ fontSize: 13, color: T.muted, marginTop: 1 }}>
-                {exp.company} · {exp.location}
-              </div>
-              <div style={{ fontSize: 12, color: T.muted, marginTop: 1 }}>
-                {exp.period} · {exp.duration}
-              </div>
-              <div style={{ marginTop: 10 }}>
-                {(expandedIdx === idx ? exp.items : exp.items.slice(0, 2)).map(
-                  (item, i) => (
-                    <div
-                      key={i}
-                      style={{
-                        display: "flex",
-                        gap: 8,
-                        marginBottom: 6,
-                        fontSize: 13,
-                        color: "#333",
-                        lineHeight: 1.5,
-                      }}
-                    >
-                      <span
-                        style={{
-                          color: T.blue,
-                          marginTop: 3,
-                          fontSize: 9,
-                          flexShrink: 0,
-                        }}
-                      >
-                        ▶
-                      </span>
-                      <span>{item}</span>
-                    </div>
-                  ),
-                )}
-                {exp.items.length > 2 && (
-                  <button
-                    onClick={() =>
-                      setExpandedIdx(expandedIdx === idx ? -1 : idx)
-                    }
-                    style={{
-                      background: "none",
-                      border: "none",
-                      color: T.blue,
-                      cursor: "pointer",
-                      fontFamily: "inherit",
-                      fontSize: 12,
-                      fontWeight: 600,
-                      padding: "4px 0",
-                    }}
-                  >
-                    {expandedIdx === idx
-                      ? "Ver menos ▲"
-                      : `Ver mais ${exp.items.length - 2} itens ▼`}
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </Card>
-  );
-}
-
-/* ─────────────────────────────────────────
-   EDUCATION
-───────────────────────────────────────── */
-function EducationSection() {
-  return (
-    <Card id="formacao">
-      <div style={{ padding: 16 }}>
-        <SectionTitle>Formação</SectionTitle>
-        {DATA.education.map((edu, idx) => (
-          <div
-            key={idx}
-            style={{
-              display: "flex",
-              gap: 12,
-              marginBottom: idx < DATA.education.length - 1 ? 20 : 0,
-            }}
-          >
-            <div
-              style={{
-                width: 48,
-                height: 48,
-                minWidth: 48,
-                borderRadius: 4,
-                background: "#fce8e6",
-                border: `1px solid ${T.border}`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 22,
-              }}
-            >
-              🎓
-            </div>
-            <div>
-              <div style={{ fontWeight: 600, fontSize: 14 }}>
-                {edu.institution}
-              </div>
-              <div style={{ fontSize: 13, color: T.muted, marginTop: 1 }}>
-                {edu.degree}
-              </div>
-              <div style={{ fontSize: 12, color: T.muted, marginTop: 1 }}>
-                {edu.period}
-              </div>
-              {edu.detail && (
-                <div
-                  style={{
-                    fontSize: 12,
-                    color: "#555",
-                    marginTop: 6,
-                    lineHeight: 1.5,
-                  }}
-                >
-                  {edu.detail}
-                </div>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-    </Card>
-  );
-}
-
-/* ─────────────────────────────────────────
-   SKILLS
-───────────────────────────────────────── */
-function SkillBadge({ label }) {
-  const [h, setH] = useState(false);
-  return (
-    <span
-      onMouseEnter={() => setH(true)}
-      onMouseLeave={() => setH(false)}
-      style={{
-        display: "inline-block",
-        fontSize: 12,
-        padding: "4px 12px",
-        borderRadius: 12,
-        background: h ? "#e8f0fe" : "#f3f2ef",
-        color: h ? T.blue : T.text,
-        border: `1px solid ${h ? T.blue : T.border}`,
-        transition: "all .15s",
-        cursor: "default",
-        fontWeight: h ? 600 : 400,
-      }}
-    >
-      {label}
-    </span>
-  );
-}
-
-function SkillsSection() {
-  const [activeGroup, setActiveGroup] = useState(null);
-  const groups = Object.entries(DATA.skills);
-
-  return (
-    <Card id="skills">
-      <div style={{ padding: 16 }}>
-        <SectionTitle>Competências</SectionTitle>
-        {groups.map(([group, items]) => (
-          <div key={group} style={{ marginBottom: 16 }}>
-            <button
-              onClick={() =>
-                setActiveGroup(activeGroup === group ? null : group)
-              }
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                width: "100%",
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                fontFamily: "inherit",
-                padding: "0 0 8px",
-              }}
-            >
-              <span style={{ fontWeight: 600, fontSize: 13, color: T.text }}>
-                {group}
-              </span>
-              <span style={{ fontSize: 11, color: T.muted }}>
-                {activeGroup === group ? "▲" : "▼"}
-              </span>
-            </button>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-              {(activeGroup === group ? items : items.slice(0, 4)).map(
-                (skill) => (
-                  <SkillBadge key={skill} label={skill} />
-                ),
-              )}
-              {activeGroup !== group && items.length > 4 && (
-                <button
-                  onClick={() => setActiveGroup(group)}
-                  style={{
-                    fontSize: 12,
-                    color: T.blue,
-                    background: "none",
-                    border: `1px solid ${T.blue}`,
-                    borderRadius: 12,
-                    padding: "3px 10px",
-                    cursor: "pointer",
-                    fontFamily: "inherit",
-                    fontWeight: 500,
-                  }}
-                >
-                  +{items.length - 4}
-                </button>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-    </Card>
-  );
-}
-
-/* ─────────────────────────────────────────
-   PROJECTS
-───────────────────────────────────────── */
-function ProjectsSection() {
-  const [hovered, setHovered] = useState(null);
-
-  return (
-    <Card id="projetos">
-      <div style={{ padding: 16 }}>
-        <SectionTitle>Projetos</SectionTitle>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 10,
-          }}
-        >
-          {DATA.projects.map((proj, idx) => (
-            <a
-              key={idx}
-              href={proj.url}
-              target="_blank"
-              rel="noreferrer"
-              onMouseEnter={() => setHovered(idx)}
-              onMouseLeave={() => setHovered(null)}
-              style={{
-                display: "block",
-                border: `1px solid ${hovered === idx ? T.blue : T.border}`,
-                borderRadius: 8,
-                overflow: "hidden",
-                transition: "all .2s",
-                transform: hovered === idx ? "translateY(-2px)" : "none",
-                boxShadow:
-                  hovered === idx ? "0 4px 16px rgba(10,102,194,.15)" : "none",
-                textDecoration: "none",
-                color: "inherit",
-              }}
-            >
-              <div style={{ padding: 14 }}>
-                <div style={{ fontSize: 24, marginBottom: 8 }}>
-                  {proj.emoji}
-                </div>
-                <div
-                  style={{
-                    fontWeight: 600,
-                    fontSize: 13,
-                    marginBottom: 6,
-                    color: hovered === idx ? T.blue : T.text,
-                    transition: "color .15s",
-                  }}
-                >
-                  {proj.name}
-                </div>
-                <p
-                  style={{
-                    fontSize: 12,
-                    color: T.muted,
-                    lineHeight: 1.5,
-                    marginBottom: 10,
-                  }}
-                >
-                  {proj.desc}
-                </p>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
-                  {proj.tech.map((t) => (
-                    <span
-                      key={t}
-                      style={{
-                        fontSize: 10,
-                        padding: "2px 8px",
-                        borderRadius: 8,
-                        background: "#f3f2ef",
-                        color: T.muted,
-                        border: `1px solid ${T.border}`,
-                      }}
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div
-                style={{
-                  borderTop: `1px solid ${T.border}`,
-                  padding: "8px 14px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 6,
-                  background: hovered === idx ? "#f0f7ff" : "#fafafa",
-                  transition: "background .15s",
-                }}
-              >
-                <GithubIcon size={13} />
-                <span style={{ fontSize: 11, color: T.muted }}>
-                  Ver no GitHub
-                </span>
-                <span
-                  style={{ marginLeft: "auto", fontSize: 11, color: T.blue }}
-                >
-                  ↗
-                </span>
-              </div>
-            </a>
-          ))}
-        </div>
-      </div>
-    </Card>
-  );
-}
-
-/* ─────────────────────────────────────────
-   CONTACT
-───────────────────────────────────────── */
-function ContactSection() {
-  return (
-    <Card id="contato">
-      <div style={{ padding: 16 }}>
-        <SectionTitle>Contato</SectionTitle>
-        <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-          {[
-            {
-              label: "GitHub",
-              icon: <GithubIcon size={18} />,
-              url: DATA.links.github,
-              color: "#1d2226",
-            },
-            {
-              label: "LinkedIn",
-              icon: <LinkedInIcon size={18} />,
-              url: DATA.links.linkedin,
-              color: T.blue,
-            },
-          ].map((item) => (
-            <ContactBtn key={item.label} {...item} />
-          ))}
-        </div>
-      </div>
-    </Card>
-  );
-}
-
-function ContactBtn({ label, icon, url, color }) {
-  const [h, setH] = useState(false);
-  return (
-    <a
-      href={url}
-      target="_blank"
-      rel="noreferrer"
-      onMouseEnter={() => setH(true)}
-      onMouseLeave={() => setH(false)}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 8,
-        padding: "10px 22px",
-        borderRadius: 20,
-        border: `1.5px solid ${h ? color : T.border}`,
-        color: h ? color : T.text,
-        background: h ? "#f0f7ff" : "white",
-        transition: "all .15s",
-        fontWeight: 600,
-        fontSize: 13,
-        textDecoration: "none",
-      }}
-    >
-      <span style={{ color: h ? color : T.muted, transition: "color .15s" }}>
-        {icon}
-      </span>
-      {label}
-    </a>
-  );
-}
-
-/* ─────────────────────────────────────────
-   RIGHT SIDEBAR
-───────────────────────────────────────── */
-const TOP_SKILLS = [
-  "Node.js",
-  "NestJS",
-  "TypeScript",
-  "PostgreSQL",
-  "MongoDB",
-  "Redis",
-  "React",
-  "Jest",
-];
-
-function RightSidebar() {
+/* ─── PANELS ─── */
+function SobrePanel() {
   return (
     <div>
-      <Card>
-        <div style={{ padding: 16 }}>
-          <div
-            style={{
-              fontWeight: 600,
-              fontSize: 13,
-              marginBottom: 12,
-              color: T.text,
-            }}
-          >
-            Top Skills
-          </div>
-          {TOP_SKILLS.map((s, i) => (
-            <div
-              key={s}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 10,
-                padding: "6px 0",
-                borderBottom:
-                  i < TOP_SKILLS.length - 1 ? `1px solid ${T.border}` : "none",
-              }}
-            >
-              <div
-                style={{
-                  width: 28,
-                  height: 28,
-                  borderRadius: "50%",
-                  background: "#e8f0fe",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: 10,
-                  fontWeight: 700,
-                  color: T.blue,
-                  flexShrink: 0,
-                }}
-              >
-                {s[0]}
-              </div>
-              <span style={{ fontSize: 13, fontWeight: 500, flex: 1 }}>
-                {s}
-              </span>
-              <div
-                style={{
-                  height: 4,
-                  width: 40,
-                  background: "#f3f2ef",
-                  borderRadius: 2,
-                  overflow: "hidden",
-                }}
-              >
-                <div
-                  style={{
-                    height: "100%",
-                    width: `${70 + ((i * 7) % 30)}%`,
-                    background: T.blue,
-                    borderRadius: 2,
-                  }}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-      </Card>
-
-      <Card style={{ marginTop: 8 }}>
-        <div style={{ padding: 16 }}>
-          <div
-            style={{
-              fontWeight: 600,
-              fontSize: 13,
-              marginBottom: 10,
-              color: T.text,
-            }}
-          >
-            Empresa atual
-          </div>
-          <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-            <div
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 4,
-                background: "#e8f0fe",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 13,
-                fontWeight: 700,
-                color: T.blue,
-              }}
-            >
-              ST
-            </div>
-            <div>
-              <div style={{ fontWeight: 600, fontSize: 13 }}>
-                STB Tecnologias
-              </div>
-              <div style={{ fontSize: 11, color: T.muted }}>Fortaleza, CE</div>
-            </div>
-          </div>
-          <div
-            style={{
-              marginTop: 10,
-              fontSize: 12,
-              color: T.muted,
-              lineHeight: 1.5,
-              padding: "8px 0",
-              borderTop: `1px solid ${T.border}`,
-            }}
-          >
-            Back-End Júnior · desde fev/2025
-          </div>
-        </div>
-      </Card>
+      {DATA.bio.map((p, i) => (
+        <p key={i} style={{ fontSize: 16, lineHeight: 1.8, color: "#999", marginBottom: 14, maxWidth: 500 }}>{p}</p>
+      ))}
+      <div style={{ display: "flex", gap: 10, marginTop: 20, flexWrap: "wrap" }}>
+        {["Fortaleza, CE", "Backend", "Full Stack"].map(c => (
+          <span key={c} style={{ fontSize: 13, padding: "5px 14px", borderRadius: 20, border: "1px solid #2e2e2e", color: "#666" }}>{c}</span>
+        ))}
+      </div>
     </div>
   );
 }
 
-/* ─────────────────────────────────────────
-   SCROLL SPY HOOK
-───────────────────────────────────────── */
-function useScrollSpy(setActive) {
-  useEffect(() => {
-    const ids = NAV_ITEMS.map((n) => n.id);
-    const handler = () => {
-      for (const id of ids) {
-        const el = document.getElementById(id);
-        if (!el) continue;
-        const rect = el.getBoundingClientRect();
-        if (rect.top <= 80 && rect.bottom > 80) {
-          setActive(id);
-          return;
-        }
-      }
-    };
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
-  }, [setActive]);
+function ProjetosPanel() {
+  const [h, setH] = useState(null);
+  return (
+    <div>
+      {DATA.projects.map((proj, i) => (
+        <div key={i} style={{
+          marginBottom: 14, padding: "14px 16px",
+          border: `1px solid ${h === i ? A : "#222"}`, borderRadius: 8,
+          background: h === i ? "#111820" : "transparent", transition: "all .2s",
+        }}
+          onMouseEnter={() => setH(i)} onMouseLeave={() => setH(null)}>
+          <div style={{ fontSize: 15, fontWeight: 600, color: h === i ? AL : "#e0e0e0", transition: "color .2s", marginBottom: 4 }}>
+            {proj.emoji} {proj.name}
+          </div>
+          <div style={{ fontSize: 12, color: A, marginBottom: 7 }}>{proj.tech}</div>
+          <div style={{ fontSize: 13, color: "#666", lineHeight: 1.5, marginBottom: 12 }}>{proj.desc}</div>
+          <div style={{ display: "flex", gap: 8 }}>
+            <ProjBtn href={proj.repo} icon={<GithubIcon size={13} />} label="Repositório" outline />
+            <ProjBtn href={proj.live} icon={<ExternalIcon size={13} />} label="Ver projeto" filled />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 }
 
-/* ─────────────────────────────────────────
-   GLOBAL STYLES (injected once)
-───────────────────────────────────────── */
-const globalCss = `
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'IBM Plex Sans', sans-serif;
-    background: #f3f2ef;
-    color: #1d2226;
-  }
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: #f3f2ef; }
-  ::-webkit-scrollbar-thumb { background: #b0b0b0; border-radius: 3px; }
-  a { text-decoration: none; color: inherit; }
-`;
+function ProjBtn({ href, icon, label, outline, filled }) {
+  const [h, setH] = useState(false);
+  return (
+    <a href={href} target="_blank" rel="noreferrer"
+      onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
+      style={{
+        display: "inline-flex", alignItems: "center", gap: 6,
+        padding: "6px 14px", borderRadius: 6, fontSize: 12, fontWeight: 500,
+        textDecoration: "none", transition: "all .15s",
+        border: outline ? `1px solid ${h ? "#4a7ec0" : "#333"}` : "none",
+        background: filled ? (h ? "#4a7ec0" : A) : (h ? "#1e1e1e" : "transparent"),
+        color: filled ? "white" : (h ? AL : "#888"),
+      }}>
+      {icon}{label}
+    </a>
+  );
+}
 
-/* ─────────────────────────────────────────
-   HOME PAGE (default export)
-───────────────────────────────────────── */
+function ExperienciaPanel() {
+  const [open, setOpen] = useState(0);
+  return (
+    <div>
+      {DATA.experience.map((exp, idx) => (
+        <div key={idx} style={{ marginBottom: 16, borderBottom: "1px solid #222", paddingBottom: 16 }}>
+          <button onClick={() => setOpen(open === idx ? -1 : idx)}
+            style={{ width: "100%", background: "none", border: "none", cursor: "pointer", padding: 0, textAlign: "left", fontFamily: "inherit", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+            <div>
+              <div style={{ fontWeight: 600, fontSize: 16, color: "#f0f0f0" }}>{exp.role}</div>
+              <div style={{ fontSize: 14, color: A, marginTop: 3 }}>{exp.company} · {exp.period}</div>
+            </div>
+            <span style={{ color: "#555", fontSize: 13, marginTop: 2 }}>{open === idx ? "▲" : "▼"}</span>
+          </button>
+          {open === idx && (
+            <ul style={{ marginTop: 10, paddingLeft: 0, listStyle: "none" }}>
+              {exp.items.map((item, i) => (
+                <li key={i} style={{ display: "flex", gap: 10, marginBottom: 7, fontSize: 14, color: "#888", lineHeight: 1.6 }}>
+                  <span style={{ color: A, flexShrink: 0 }}>—</span>{item}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function FormacaoPanel() {
+  return (
+    <div>
+      {DATA.education.map((edu, i) => (
+        <div key={i} style={{ marginBottom: 20, paddingBottom: 20, borderBottom: i < DATA.education.length - 1 ? "1px solid #222" : "none" }}>
+          <div style={{ fontWeight: 600, fontSize: 16, color: "#f0f0f0" }}>{edu.inst}</div>
+          <div style={{ fontSize: 14, color: A, marginTop: 3 }}>{edu.degree}</div>
+          <div style={{ fontSize: 13, color: "#555", marginTop: 2 }}>Concluído em {edu.year}</div>
+          {edu.note && <div style={{ fontSize: 13, color: "#666", marginTop: 6 }}>{edu.note}</div>}
+        </div>
+      ))}
+      <div style={{ marginTop: 8 }}>
+        <div style={{ fontSize: 12, color: "#555", textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 500, marginBottom: 8 }}>Idiomas</div>
+        {["Inglês — Técnico (leitura)", "Espanhol — Básico"].map(l => (
+          <div key={l} style={{ fontSize: 14, color: "#888", marginBottom: 6 }}>· {l}</div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function SkillTag({ children }) {
+  const [h, setH] = useState(false);
+  return (
+    <span onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
+      style={{
+        fontSize: 13, padding: "5px 13px", borderRadius: 4,
+        background: h ? "#111820" : "#1e1e1e", border: `1px solid ${h ? A : "#2a2a2a"}`,
+        color: h ? AL : "#888", transition: "all .15s", cursor: "default",
+      }}>{children}</span>
+  );
+}
+
+function SkillsPanel() {
+  return (
+    <div>
+      {Object.entries(DATA.skills).map(([group, items]) => (
+        <div key={group} style={{ marginBottom: 18 }}>
+          <div style={{ fontSize: 12, color: A, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 9 }}>{group}</div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+            {items.map(s => <SkillTag key={s}>{s}</SkillTag>)}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ContatoRow({ label, icon, url, sub }) {
+  const [h, setH] = useState(false);
+  return (
+    <a href={url} target="_blank" rel="noreferrer"
+      onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
+      style={{ display: "flex", alignItems: "center", gap: 16, padding: "13px 0", borderBottom: "1px solid #1e1e1e", textDecoration: "none", color: "inherit" }}>
+      <span style={{ color: h ? A : "#444", transition: "color .15s" }}>{icon}</span>
+      <div>
+        <div style={{ fontSize: 14, fontWeight: 600, color: h ? AL : "#ddd", transition: "color .15s" }}>{label}</div>
+        <div style={{ fontSize: 12, color: "#555" }}>{sub}</div>
+      </div>
+      <span style={{ marginLeft: "auto", color: A, opacity: h ? 1 : 0, transition: "opacity .2s", fontSize: 15 }}>↗</span>
+    </a>
+  );
+}
+
+function ContatoPanel() {
+  return (
+    <div>
+      <p style={{ fontSize: 15, color: "#777", marginBottom: 24, lineHeight: 1.7 }}>Aberto a novas oportunidades e colaborações. Entre em contato!</p>
+      {[
+        { label: "GitHub",    icon: <GithubIcon size={20} />,    url: DATA.links.github,    sub: "JonasTiago" },
+        { label: "LinkedIn",  icon: <LinkedInIcon size={20} />,  url: DATA.links.linkedin,  sub: "jonastiago" },
+        { label: "E-mail",    icon: <MailIcon size={20} />,      url: DATA.links.email,     sub: "jonastiago@email.com" },
+        { label: "Instagram", icon: <InstagramIcon size={20} />, url: DATA.links.instagram, sub: "@j.t.santos85" },
+      ].map(item => <ContatoRow key={item.label} {...item} />)}
+    </div>
+  );
+}
+
+/* ─── PANELS MAP ─── */
+const PANELS = {
+  sobre:       <SobrePanel />,
+  projetos:    <ProjetosPanel />,
+  experiencia: <ExperienciaPanel />,
+  formacao:    <FormacaoPanel />,
+  skills:      <SkillsPanel />,
+  contato:     <ContatoPanel />,
+};
+
+/* ─── HOME PAGE ─── */
 export default function Home() {
-  const [activeSection, setActiveSection] = useState("sobre");
+  const [active, setActive] = useState("sobre");
+  const [animKey, setAnimKey] = useState(0);
 
-  useScrollSpy(setActiveSection);
-
-  const scrollTo = (id) => {
-    setActiveSection(id);
-    const el = document.getElementById(id);
-    if (!el) return;
-    const top = el.getBoundingClientRect().top + window.scrollY - 64;
-    window.scrollTo({ top, behavior: "smooth" });
+  const goTo = (id) => {
+    if (id === active) return;
+    setActive(id);
+    setAnimKey(k => k + 1);
   };
+
+  const activeLabel = SECTIONS.find(s => s.id === active)?.label;
 
   return (
     <>
       <Head>
-        <title>Jonas Tiago — Portfolio</title>
-        <meta
-          name="description"
-          content="Software Engineer | Full Stack Developer | Back-end"
-        />
+        <title>Jonas Santos — Portfolio</title>
+        <meta name="description" content="Software Engineer | Full Stack Developer | Back-end" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet" />
         <style>{globalCss}</style>
       </Head>
 
-      <TopNav activeSection={activeSection} onNav={scrollTo} />
+      <div style={{ width: "100vw", height: "100vh", display: "flex", flexDirection: "column", background: "#181818", position: "relative", overflow: "hidden" }}>
 
-      <main
-        style={{
-          maxWidth: 1128,
-          margin: "0 auto",
-          padding: "24px 16px",
-          display: "grid",
-          gridTemplateColumns: "226px 1fr 226px",
-          gap: 16,
-          alignItems: "start",
-        }}
-      >
-        {/* LEFT */}
-        <div style={{ position: "sticky", top: 68 }}>
-          <ProfileCard />
-        </div>
+        <CornerBracket position="tl" />
+        <CornerBracket position="tr" />
+        <CornerBracket position="bl" />
+        <CornerBracket position="br" />
 
-        {/* CENTER */}
-        <div>
-          <AboutSection />
-          <ExperienceSection />
-          <EducationSection />
-          <SkillsSection />
-          <ProjectsSection />
-          <ContactSection />
-        </div>
+        {/* HEADER */}
+        <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "22px 48px", flexShrink: 0, position: "relative", zIndex: 2 }}>
+          <Logo />
+          <div style={{ display: "flex", gap: 24 }}>
+            <HeaderLink icon={<MailIcon size={22} />}      url={DATA.links.email}     label="Email" />
+            <HeaderLink icon={<GithubIcon size={22} />}    url={DATA.links.github}    label="GitHub" />
+            <HeaderLink icon={<LinkedInIcon size={22} />}  url={DATA.links.linkedin}  label="LinkedIn" />
+            <HeaderLink icon={<InstagramIcon size={22} />} url={DATA.links.instagram} label="Instagram" />
+          </div>
+        </header>
 
-        {/* RIGHT */}
-        <div style={{ position: "sticky", top: 68 }}>
-          <RightSidebar />
-        </div>
-      </main>
+        {/* BODY */}
+        <main style={{ flex: 1, display: "grid", gridTemplateColumns: "1fr 240px", padding: "0 48px 24px", overflow: "hidden", position: "relative", zIndex: 1 }}>
+
+          {/* LEFT — title + content */}
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", paddingRight: 60, overflowY: "auto" }}>
+            <div style={{
+              fontFamily: "'DM Serif Display', serif",
+              fontSize: "clamp(44px, 5.5vw, 72px)",
+              fontWeight: 400, color: "#f0f0f0",
+              letterSpacing: "-0.01em", marginBottom: 24, lineHeight: 1.05, flexShrink: 0,
+            }}>
+              {activeLabel}
+              <span style={{ color: A, display: "inline-block", animation: "blink .9s step-end infinite" }}>.</span>
+            </div>
+            <div key={animKey} style={{ animation: "fadeIn .3s ease both" }}>
+              {PANELS[active]}
+            </div>
+          </div>
+
+          {/* RIGHT — nav */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", borderLeft: "1px solid #202020" }}>
+            <div>
+              <div style={{ fontSize: 11, color: A, fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 18, paddingLeft: 22 }}>
+                Navegação
+              </div>
+              {SECTIONS.map(sec => {
+                const isActive = active === sec.id;
+                return (
+                  <button key={sec.id} onClick={() => goTo(sec.id)}
+                    style={{
+                      display: "block", width: "100%", background: "none", border: "none",
+                      cursor: "pointer", fontFamily: "inherit", padding: "9px 0 9px 22px",
+                      textAlign: "left",
+                      borderLeft: `2px solid ${isActive ? A : "transparent"}`,
+                      transition: "border-color .2s", marginBottom: 2,
+                    }}>
+                    <span style={{
+                      fontSize: 15, fontWeight: isActive ? 500 : 400,
+                      color: isActive ? AL : "#555", transition: "color .2s",
+                      textDecoration: isActive ? "underline" : "none",
+                      textUnderlineOffset: 4, textDecorationColor: A,
+                    }}>
+                      {sec.label}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </main>
+
+        {/* FOOTER */}
+        <footer style={{ textAlign: "right", padding: "0 52px 18px", fontSize: 12, color: "#2a2a2a", flexShrink: 0, zIndex: 2, position: "relative" }}>
+          ©2025 jonastiago.dev
+        </footer>
+      </div>
     </>
   );
 }
