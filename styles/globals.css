@@ -1,0 +1,230 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  min-height: 100%;
+  overflow-x: hidden;
+  overscroll-behavior: none;
+}
+body {
+  font-family:
+    "DM Sans",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  background: #181818;
+  color: #e8e8e8;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 2px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ── Wrapper ── */
+.pf-wrap {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #181818;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ── Centered container ── */
+.pf-inner {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+/* ── Header ── */
+.pf-header {
+  flex-shrink: 0;
+  padding: 22px 0;
+  position: relative;
+  z-index: 2;
+}
+.pf-header .pf-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ── Main grid ── */
+.pf-main {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+.pf-main .pf-inner {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  padding-bottom: 24px;
+  min-height: calc(100vh - 88px);
+}
+
+/* ── Content column ── */
+.pf-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 56px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+/* ── Sidebar nav ── */
+.pf-sidenav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid #202020;
+}
+
+/* ── Bottom nav (mobile) ── */
+.pf-bottomnav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #111;
+  border-top: 1px solid #222;
+  z-index: 100;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.pf-bottomnav::-webkit-scrollbar {
+  display: none;
+}
+.pf-bottomnav-inner {
+  display: flex;
+  min-width: max-content;
+  padding: 0 4px;
+}
+.pf-bottomnav-btn {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: "DM Sans", sans-serif;
+  padding: 11px 14px 9px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  color: #555;
+  border-bottom: 2px solid transparent;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+  white-space: nowrap;
+}
+.pf-bottomnav-btn.active {
+  color: #7ab3e0;
+  border-bottom-color: #3a6ea8;
+}
+
+/* ── Footer ── */
+.pf-footer {
+  text-align: right;
+  padding: 0 0 18px;
+  font-size: 12px;
+  color: #2a2a2a;
+  flex-shrink: 0;
+  z-index: 2;
+  position: relative;
+}
+
+/* ── Corner brackets ── */
+.pf-bracket {
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Section title ── */
+.pf-title {
+  font-family: "DM Serif Display", serif;
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 400;
+  color: #f0f0f0;
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+  line-height: 1.05;
+  flex-shrink: 0;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .pf-inner {
+    padding: 0 24px;
+  }
+  .pf-main .pf-inner {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding-bottom: 80px;
+  }
+  .pf-content {
+    padding-right: 0;
+    justify-content: flex-start;
+  }
+  .pf-sidenav {
+    display: none;
+  }
+  .pf-bottomnav {
+    display: block;
+  }
+  .pf-footer {
+    display: none;
+  }
+  .pf-bracket {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .pf-inner {
+    padding: 0 16px;
+  }
+  .pf-header {
+    padding: 16px 0;
+  }
+}
